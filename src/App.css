@@ -1,11 +1,10 @@
-/* .App {
-  display: flex;
-  justify-content: center;
-} */
-.btn {
+.center{
+  text-align: center;
+}
+.Btn {
   padding: 10px 20px;
   font-size: 13px;
-  text-align: center;
+  /* text-align: center; */
   cursor: pointer;
   outline: none;
   color: #fff;
@@ -15,14 +14,14 @@
   box-shadow: 0 2px #999;
 }
 
-.btn:hover {background-color: #1132c5}
+.Btn:hover {background-color: #1132c5}
 
-.btn:active {
+.Btn:active {
   background-color: #3e8e41;
   box-shadow: 0 5px #666;
   transform: translateY(4px);
 }
-.button{
+.Button{
   text-align: center;
 }
   label {
@@ -66,7 +65,7 @@ form {
 }
 
 
-.linkbtn {
+.linkBtn {
   padding: 10px 20px;
   font-size: 13px;
   cursor: pointer;
@@ -79,14 +78,14 @@ form {
   margin-left: 6px;
 }
 
-.linkbtn:hover {background-color: #1132c5}
+.linkBtn:hover {background-color: #1132c5}
 
-.linkbtn:active {
+.linkBtn:active {
   background-color: #3e8e41;
-  box-shadow: 0 5px #666;
-  transform: translateY(4px);
+  box-shadow: 0 2px #666;
+  transform: translateY(1px);
 }
-.linkbutton {
+.linkButton {
   display: contents;
 }
 

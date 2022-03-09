@@ -1,4 +1,10 @@
+.textCenter{
+  text-align: center;
+  padding-top: 35px;
+  padding-bottom: 10px;
+  font-weight: 600;
 
+}
  .btn {
     padding: 10px 20px;
     font-size: 13px;
@@ -16,8 +22,8 @@
   
   .btn:active {
     background-color: #3e8e41;
-    box-shadow: 0 5px #666;
-    transform: translateY(4px);
+    box-shadow: 0 2px #666;
+    transform: translateY(1px);
   }
   .button{
     text-align: center;

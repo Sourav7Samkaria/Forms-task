@@ -1,129 +1,125 @@
-import { useState, useEffect, Fragment } from "react";
-function SimpleForm() {
-  const initialValues = {
-    firstName: "",
-    lastName: "",
-    organisationName: "",
-    email: "",
-    phoneNumber: "",
-  };
-  const [formValues, setFormValues] = useState(initialValues);
-  const [formErrors, setFormErrors] = useState({});
-  const [isSubmit, setIsSubmit] = useState(false);
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value });
+import { useForm } from "react-hook-form";
+function NewSimpleForm() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+    trigger,
+  } = useForm();
+
+  const onSubmit = (data) => {
+    console.log(data);
+    reset();
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setFormErrors(validate(formValues));
-    setIsSubmit(true);
-  };
-  useEffect(() => {
-    console.log(formErrors);
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(formValues);
-    }
-  }, [formErrors]);
+  // console.log(watch());
 
-  const validate = (values) => {
-    const errors = {};
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-    if (!values.firstName) {
-      errors.firstName = "Required";
-    }
-    if (!values.lastName) {
-      errors.lastName = "Required";
-    }
-    if (!values.organisationName) {
-      errors.organisationName = "Required";
-    }
-    if (!values.email) {
-      errors.email = "Required!";
-    } else if (!regex.test(values.email)) {
-      errors.email = "This is not a valid email Format !";
-    }
-    if (!values.phoneNumber) {
-        errors.phoneNumber = "Phone number is required";
-      } 
-    return errors;
-  };
+  // console.log(errors.name)
+
   return (
     <div>
-      <Fragment>
-        <center>Simple Login Form</center>
-        <form onSubmit={handleSubmit}>
-          <div className="form-control">
-            <label>First Name</label>
-            <input
-              type="text"
-              name="firstName"  
-              placeholder="First Name"
-              values={formValues.firstName}
-              onChange={handleChange}
-            />
-          </div>
-          <p style={{ color: "red" }}>{formErrors.firstName}</p>
+      <div className="textCenter">Simple Login Form</div>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="form-control">
+          <label htmlFor="firstName">First Name</label>
+          <input
+            type="text"
+            className={`${errors.firstName && "invalid"}`}
+            {...register("firstName", { required: "Required" })}
+            onKeyUp={() => {
+              trigger("firstName");
+            }}
+          />
+          {errors.firstName && (
+            <p style={{color:"red"}}>{errors.firstName.message}</p>
+          )}
+        </div>
 
-          <div className="form-control">
-            <label htmlFor="lastName">Last Name</label>
-            <input
-              type="text"
-              name="lastName"
-              placeholder="Last Name"
-              values={formValues.lastName}
-              onChange={handleChange}
-            />
-          </div>
-          <p style={{ color: "red" }}>{formErrors.lastName}</p>
 
-          <div className="form-control">
-            <label htmlFor="organisationName">Organisation Name</label>
-            <input
-              type="text"
-              name="organisationName"
-              placeholder="Organisation Name"
-              values={formValues.organisationName}
-              onChange={handleChange}
-            />
-          </div>
-          <p style={{ color: "red" }}>{formErrors.organisationName}</p>
+        <div className="form-control">
+          <label htmlFor="firstName">Last Name</label>
+          <input
+            type="text"
+            className={`${errors.lastName && "invalid"}`}
+            {...register("lastName", { required: "Required" })}
+            onKeyUp={() => {
+              trigger("lastName");
+            }}
+          />
+          {errors.lastName && (
+            <p style={{color:"red"}}>{errors.lastName.message}</p>
+          )}
+        </div>
 
-          <div className="form-control">
-            <label>Email</label>
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={formValues.email}
-              onChange={handleChange}
-            />
-          </div>
-          <p style={{ color: "red" }}>{formErrors.email}</p>
 
-          <div className="form-control">
-            <label htmlFor="phoneNumber">Phone Number</label>
-            <input
-              type="text"
-              name="phoneNumber"
-              pattern="[+-]?\d+(?:[.,]\d+)?"
+        <div className="form-control">
+          <label htmlFor="organisationName">Organisation Name</label>
+          <input
+            type="text"
+            className={`${errors.organisationName && "invalid"}`}
+            {...register("organisationName", { required: "Required" })}
+            onKeyUp={() => {
+              trigger("organisationName");
+            }}
+          />
+          {errors.organisationName && (
+            <p style={{color:"red"}}>{errors.organisationName.message}</p>
+          )}
+        </div>
+      
 
-              placeholder="Phone Number"
-              values={formValues.phoneNumber}
-              onChange={handleChange}
-            />
-          </div>
 
-          <p style={{ color: "red" }}>{formErrors.phoneNumber}</p>
-          <div className="button">
+        <div className="form-group">
+          <label className="col-form-label">Email:</label>
+          <input
+            type="text"
+            className={`form-control ${errors.email && "invalid"}`}
+            {...register("email", {
+              required: "Email is Required",
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: "Invalid email address",
+              },
+            })}
+            onKeyUp={() => {
+              trigger("email");
+            }}
+          />
+          {errors.email && (
+             <p style={{color:"red"}}>{errors.email.message}</p>
+          )}
+        </div>
+        <div className="form-group">
+          <label className="col-form-label">Phone:</label>
+          <input
+            type="text"
+            className={`form-control ${errors.phone && "invalid"}`}
+            {...register("phoneNumber", {
+              required: "Required",
+              pattern: {
+                value:
+                  /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/,
+                message: "Invalid phone no",
+              },
+            })}
+            onKeyUp={() => {
+              trigger("phoneNumber");
+            }}
+          />
+          {errors.phoneNumber && (
+                        <p style={{color:"red"}}>{errors.phoneNumber.message}</p>
+
+          )}
+        </div>
+        <div className="button">
             <button type="submit" className=" btn">
               Submit
             </button>
           </div>
-        </form>
-      </Fragment>
+      </form>
     </div>
   );
 }
-export default SimpleForm;
+
+export default NewSimpleForm;

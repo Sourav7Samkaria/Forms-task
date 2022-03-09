@@ -7,30 +7,31 @@ import './App.css'
 function App() {
   return (
     <div className="App">
-     
-      
-        <Link to="/FormikForm">
-          <div className="linkbutton">
-            <button type="submit" className="linkbtn">
-              Formik Form
-            </button>
-          </div>
-        </Link>
-        <Link to="/SimpleForm">
-          <div className="linkbutton">
-            <button type="submit" className="linkbtn">
-              Simple Form
-            </button>
-          </div>
-        </Link>
-        <Link to="/FinalForm">
-          
-          <div className="linkbutton">
-            <button type="submit" className="linkbtn">
-              Final Form
-            </button>
-          </div>
-        </Link>
+
+<div className="center">
+      <Link to="/FormikForm">
+        <div className="linkButton">
+          <button type="submit" className="linkBtn">
+            Formik Form
+          </button>
+        </div>
+      </Link>
+      <Link to="/SimpleForm">
+        <div className="linkButton">
+          <button type="submit" className="linkBtn">
+            Simple Form
+          </button>
+        </div>
+      </Link>
+      <Link to="/FinalForm">
+
+        <div className="linkButton">
+          <button type="submit" className="linkBtn">
+            Final Form
+          </button>
+        </div>
+      </Link>
+      </div>
       <Switch>
         <Route path="/formikform" component={FormikForm} />
         <Route path="/SimpleForm" component={SimpleForm} />

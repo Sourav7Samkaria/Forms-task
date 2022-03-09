@@ -20,9 +20,18 @@ const FinalForm = () => {
     ) {
       errors.email = "Enter a valid email.";
     }
+
+   
+    
     if (!values.phoneNumber) {
       errors.phoneNumber = 'Phone number is required'
     } 
+    
+    else if (
+      !values.phoneNumber.match(/^[0-9\b]+$/)
+    ) {
+      errors.phoneNumber = "Enter a valid format.";
+    }
    
     return errors;
   };
@@ -39,7 +48,7 @@ const FinalForm = () => {
       }}
       render={({ handleSubmit, form, values }) => (
         <div>
-          <center>Final Form</center>
+         <div className="textCenter">Final Form</div>
           <form onSubmit={handleSubmit}>
             <div className="form-control">
               <Field name="firstName">
@@ -137,7 +146,8 @@ const FinalForm = () => {
                       {...input}
                       type="text"
                       id="phoneNumber"
-                      pattern="[+-]?\d+(?:[.,]\d+)?"
+                      minLength={6}
+                      maxLength={10}
                       placeholder="Phone Number"
                     />
                     {meta.error && meta.touched && (
