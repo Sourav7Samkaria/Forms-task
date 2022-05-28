@@ -1,94 +1,59 @@
-import React from 'react'
+import React from "react";
 import { Form, Field } from "react-final-form";
-import "./index.css";
+import '../Form.css'
+
 const FinalForm = () => {
-  const onSubmit = (data, formData) => {
+  const onSubmit = (data) => {
     console.log(data);
   };
   const validate = (values) => {
     const errors = {};
+
+    if (values.firstName && values.firstName.length < 3)
+      errors.firstName = "First Name must be between 3 and 15 characters";
     if (!values.firstName) {
-      errors.firstName = "Required";
+      errors.firstName = "First Name cannot be blank";
     }
-    if (!values.lastName) errors.lastName = "Required";
-
-    if (!values.organisationName) errors.organisationName = "Required";
-
+    if (values.lastName && values.lastName.length < 3)
+      errors.lastName = "Last Name must be between 3 and 15 characters";
+    if (!values.lastName) errors.lastName = "Last Name cannot be blank";
+    if (values.organisationName && values.organisationName.length < 5)
+      errors.organisationName =
+        " Organisation Name must be between 3 and 15 characters";
+    if (!values.organisationName)
+      errors.organisationName = "Organisation Name cannot be blank";
     if (!values.email) {
-      errors.email = "Email is required.";
+      errors.email = "Email cannot be blank.";
     } else if (
       !values.email.match(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/)
     ) {
-      errors.email = "Enter a valid email.";
+      errors.email = "Email is not valid";
     }
-
-   
-    
     if (!values.phoneNumber) {
-      errors.phoneNumber = 'Phone number is required'
-    } 
-    
-    else if (
-      !values.phoneNumber.match(/^[0-9\b]+$/)
-    ) {
+      errors.phoneNumber = "Phone number can not be blank";
+    } else if (!values.phoneNumber.match(/^[0-9\b]+$/)) {
       errors.phoneNumber = "Enter a valid format.";
     }
-   
     return errors;
   };
   return (
     <Form
       onSubmit={onSubmit}
       validate={validate}
-      initialValues={{
-        firstName: "",
-        lastName: "",
-        organisationName: "",
-        email: "",
-        phoneNumber: "",
-      }}
-      render={({ handleSubmit, form, values }) => (
+      render={({ handleSubmit }) => (
         <div>
-         <div className="textCenter">Final Form</div>
+          <div className="form-name">Final Form</div>
           <form onSubmit={handleSubmit}>
             <div className="form-control">
               <Field name="firstName">
                 {({ input, meta }) => (
                   <div>
                     {" "}
-                    <label htmlFor="firstName">First name</label>
-                    <input
-                      {...input}
-                      type="text"
-                      name="firstName"
-                      placeholder="First Name"
-                    />
+                    <label>First Name</label>
+                    <input {...input} type="text" placeholder="First Name" />
                     {meta.error && meta.touched && (
                       <div>
-                        <p style={{ color: "red" }}>{meta.error}</p>
-                      </div>
-                    )}
-                  </div>
-                )}
-              </Field>
-            </div>
-
-            
-            <div className="form-control">
-            <Field name="lastName">
-                {({ input, meta }) => (
-                  <div>
-                    {" "}
-                    <label htmlFor="lastName">Last name</label>
-                    <input
-                      {...input}
-                      type="text"
-                      name="lastName"
-                      placeholder="last Name "
-                    />
-                    {meta.error && meta.touched && (
-                      <div>
-                        <p style={{ color: "red" }}>{meta.error}</p>
+                        <div className="error-message">{meta.error}</div>
                       </div>
                     )}
                   </div>
@@ -96,11 +61,27 @@ const FinalForm = () => {
               </Field>
             </div>
             <div className="form-control">
-            <Field name="organisationName">
+              <Field name="lastName">
                 {({ input, meta }) => (
                   <div>
                     {" "}
-                    <label htmlFor="organisationName">Organisation Name </label>
+                    <label>Last Name</label>
+                    <input {...input} type="text" placeholder="Last Name " />
+                    {meta.error && meta.touched && (
+                      <div>
+                        <div className="error-message">{meta.error}</div>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </Field>
+            </div>
+            <div className="form-control">
+              <Field name="organisationName">
+                {({ input, meta }) => (
+                  <div>
+                    {" "}
+                    <label>Organisation Name </label>
                     <input
                       {...input}
                       type="text"
@@ -109,7 +90,7 @@ const FinalForm = () => {
                     />
                     {meta.error && meta.touched && (
                       <div>
-                        <p style={{ color: "red" }}>{meta.error}</p>
+                        <div className="error-message">{meta.error}</div>
                       </div>
                     )}
                   </div>
@@ -117,32 +98,26 @@ const FinalForm = () => {
               </Field>
             </div>
             <div className="form-control">
-            <Field name="email">
+              <Field name="email">
                 {({ input, meta }) => (
                   <div>
                     {" "}
-                    <label htmlFor="email">Email </label>
-                    <input
-                      {...input}
-                      type="email"
-                      name="email"
-                      placeholder="Email"
-                    />
+                    <label>Email </label>
+                    <input {...input} type="email" placeholder="E-mail" />
                     {meta.error && meta.touched && (
                       <div>
-                        <p style={{ color: "red" }}>{meta.error}</p>
+                        <div className="error-message">{meta.error}</div>
                       </div>
                     )}
                   </div>
                 )}
               </Field>
             </div>
-
             <div className="form-control">
-            <Field name="phoneNumber">
+              <Field name="phoneNumber">
                 {({ input, meta }) => (
                   <div>
-                    <label htmlFor="phoneNumber">Phone Number </label>
+                    <label>Phone Number </label>
                     <input
                       {...input}
                       type="text"
@@ -153,7 +128,7 @@ const FinalForm = () => {
                     />
                     {meta.error && meta.touched && (
                       <div>
-                        <p style={{ color: "red" }}>{meta.error}</p>
+                        <div className="error-message">{meta.error}</div>
                       </div>
                     )}
                   </div>

@@ -1,4 +1,5 @@
-import React from 'react'
+import React from "react";
+import "../Form.css";
 import { useForm } from "react-hook-form";
 function NewSimpleForm() {
   const {
@@ -13,19 +14,15 @@ function NewSimpleForm() {
     console.log(data);
     reset();
   };
-
-  // console.log(watch());
-
-  // console.log(errors.name)
-
   return (
     <div>
-      <div className="textCenter">Simple Login Form</div>
+      <div className="form-name">Simple  Form</div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-control">
-          <label htmlFor="firstName">First Name</label>
+          <label>First Name</label>
           <input
             type="text"
+            placeholder="First Name"
             className={`${errors.firstName && "invalid"}`}
             {...register("firstName", { required: "Required" })}
             onKeyUp={() => {
@@ -33,15 +30,15 @@ function NewSimpleForm() {
             }}
           />
           {errors.firstName && (
-            <p style={{color:"red"}}>{errors.firstName.message}</p>
+            <div className="error-message">{errors.firstName.message}</div>
           )}
         </div>
 
-
         <div className="form-control">
-          <label htmlFor="firstName">Last Name</label>
+          <label>Last Name</label>
           <input
             type="text"
+            placeholder="Last Name"
             className={`${errors.lastName && "invalid"}`}
             {...register("lastName", { required: "Required" })}
             onKeyUp={() => {
@@ -49,15 +46,15 @@ function NewSimpleForm() {
             }}
           />
           {errors.lastName && (
-            <p style={{color:"red"}}>{errors.lastName.message}</p>
+            <div className="error-message">{errors.lastName.message}</div>
           )}
         </div>
 
-
         <div className="form-control">
-          <label htmlFor="organisationName">Organisation Name</label>
+          <label>Organisation Name</label>
           <input
             type="text"
+            placeholder="Organisation Name"
             className={`${errors.organisationName && "invalid"}`}
             {...register("organisationName", { required: "Required" })}
             onKeyUp={() => {
@@ -65,17 +62,18 @@ function NewSimpleForm() {
             }}
           />
           {errors.organisationName && (
-            <p style={{color:"red"}}>{errors.organisationName.message}</p>
+            <div className="error-message">
+              {errors.organisationName.message}
+            </div>
           )}
         </div>
-      
 
-
-        <div className="form-group">
-          <label className="col-form-label">Email:</label>
+        <div className="form-control">
+          <label>Email:</label>
           <input
             type="text"
-            className={`form-control ${errors.email && "invalid"}`}
+            placeholder="E-mail"
+            className={` ${errors.email && "invalid"}`}
             {...register("email", {
               required: "Email is Required",
               pattern: {
@@ -88,19 +86,19 @@ function NewSimpleForm() {
             }}
           />
           {errors.email && (
-             <p style={{color:"red"}}>{errors.email.message}</p>
+            <div className="error-message">{errors.email.message}</div>
           )}
         </div>
-        <div className="form-group">
+        <div className="form-control">
           <label className="col-form-label">Phone:</label>
           <input
             type="text"
-            className={`form-control ${errors.phone && "invalid"}`}
+            placeholder="Phone Number"
+            className={` ${errors.phone && "invalid"}`}
             {...register("phoneNumber", {
               required: "Required",
               pattern: {
-                value:
-                  /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/,
+                value: /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/,
                 message: "Invalid phone no",
               },
             })}
@@ -109,15 +107,14 @@ function NewSimpleForm() {
             }}
           />
           {errors.phoneNumber && (
-                        <p style={{color:"red"}}>{errors.phoneNumber.message}</p>
-
+            <div className="error-message">{errors.phoneNumber.message}</div>
           )}
         </div>
         <div className="button">
-            <button type="submit" className=" btn">
-              Submit
-            </button>
-          </div>
+          <button type="submit"  className=" btn">
+            Submit
+          </button>
+        </div>
       </form>
     </div>
   );
